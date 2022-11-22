@@ -16,12 +16,12 @@ class Editora(models.Model):
 class Autor(models.Model):
     nome = models.CharField(max_length=255)
     email = models.EmailField()
-
     def __str__(self):
         return self.nome
 
     class Meta:
         verbose_name_plural = "Autores"
+        
 
 
 class Livro(models.Model):
@@ -35,7 +35,7 @@ class Livro(models.Model):
     editora = models.ForeignKey(
         Editora, on_delete=models.PROTECT, related_name="livros"
     )
-
+    autores = models.ManyToManyField(Autor, related_name="livros")
     def __str__(self):
         return f'{self.titulo} ({self.quantidade})'
 
